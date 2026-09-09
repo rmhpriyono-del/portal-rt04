@@ -1,0 +1,14 @@
+{
+  "name": "portal-rt04",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portal warga RT04/RW04 dengan API SQLite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

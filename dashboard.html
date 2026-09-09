@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard RT04/RW04</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="dashboard-body">
+    <div class="dashboard-shell">
+      <aside class="dashboard-sidebar">
+        <div class="sidebar-brand">
+          <div class="brand-mark">RT</div>
+          <div>
+            <div class="brand-name">RT 04 / RW 04</div>
+            <small>Admin Panel</small>
+          </div>
+        </div>
+
+        <nav class="sidebar-menu">
+          <a href="#" class="active">🏠 Overview</a>
+          <a href="#resident-management">👥 Warga</a>
+          <a href="#announcement-management">📢 Pengumuman</a>
+          <a href="#">🧹 Kegiatan</a>
+          <a href="#">💰 Keuangan</a>
+          <a href="#gallery-management">📁 Galeri</a>
+          <a href="#">⚙️ Pengaturan</a>
+          <a href="index.html">↩ Kembali ke Website</a>
+        </nav>
+      </aside>
+
+      <main class="dashboard-main">
+        <div class="dashboard-topbar">
+          <div class="dashboard-title">
+            <h1>Dashboard Warga</h1>
+            <p>Ringkasan aktivitas lingkungan dan pelayanan RT/RW 04</p>
+          </div>
+
+          <div class="top-actions">
+            <button class="ghost-btn">Export</button>
+            <div class="user-chip">
+              <div class="user-avatar">A</div>
+              <span>Admin RT</span>
+            </div>
+            <a href="login.html" class="ghost-btn">Logout</a>
+          </div>
+        </div>
+
+        <section class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Warga Aktif</span>
+              <span class="trend-up">+8.2%</span>
+            </div>
+            <div class="kpi-value">120</div>
+            <span class="kpi-change">Naik bulan ini</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Pengaduan</span>
+              <span class="trend-neutral">18</span>
+            </div>
+            <div class="kpi-value">18</div>
+            <span class="kpi-change">Perlu ditindaklanjuti</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Kegiatan</span>
+              <span class="trend-up">+4</span>
+            </div>
+            <div class="kpi-value">15</div>
+            <span class="kpi-change">Rencana aktif</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Kehadiran</span>
+              <span class="trend-up">96%</span>
+            </div>
+            <div class="kpi-value">96%</div>
+            <span class="kpi-change">Sangat baik</span>
+          </div>
+        </section>
+
+        <section class="dashboard-grid top-panels">
+          <div class="panel chart-panel">
+            <div class="panel-head">
+              <h3>Performa Warga</h3>
+              <span class="panel-tag">Bulanan</span>
+            </div>
+            <div class="bar-chart" aria-label="chart">
+              <div class="bar-group"><span class="bar" style="height: 35%"></span><label>Jan</label></div>
+              <div class="bar-group"><span class="bar" style="height: 48%"></span><label>Feb</label></div>
+              <div class="bar-group"><span class="bar" style="height: 60%"></span><label>Mar</label></div>
+              <div class="bar-group"><span class="bar" style="height: 52%"></span><label>Apr</label></div>
+              <div class="bar-group"><span class="bar" style="height: 72%"></span><label>Mei</label></div>
+              <div class="bar-group"><span class="bar" style="height: 88%"></span><label>Jun</label></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Aksi Cepat</h3>
+              <span class="panel-tag">Tools</span>
+            </div>
+            <div class="quick-actions">
+              <a href="#resident-management" class="quick-btn" id="addResidentQuickButton"><span>Tambah Data Warga</span><span>→</span></a>
+              <a href="#" class="quick-btn"><span>Catat Kegiatan</span><span>→</span></a>
+              <a href="#resident-management" class="quick-btn" id="manageResidentsButton"><span>Kelola Warga</span><span>→</span></a>
+              <a href="#" class="quick-btn"><span>Lihat Arsip</span><span>→</span></a>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-grid detail-panels">
+          <div class="panel" id="resident-management">
+            <div class="panel-head">
+              <h3>Data Warga Terbaru</h3>
+              <button type="button" class="btn btn-primary btn-small" id="addResidentButton">+ Tambah Warga</button>
+            </div>
+            <div class="table-tools">
+              <input id="residentSearch" type="search" placeholder="Cari nama atau blok..." aria-label="Cari data warga" />
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Blok</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="residentTableBody"></tbody>
+            </table>
+            <form class="resident-form" id="residentForm" hidden>
+              <div class="resident-form-head">
+                <h4 id="residentFormTitle">Tambah Warga</h4>
+                <button type="button" class="form-close" id="cancelResidentButton" aria-label="Tutup form">&times;</button>
+              </div>
+              <input type="hidden" id="residentId" />
+              <div class="resident-form-grid">
+                <label>Nama lengkap<input id="residentName" type="text" required /></label>
+                <label>Blok<input id="residentBlock" type="text" placeholder="Contoh: A1" required /></label>
+                <label>Status<select id="residentStatus"><option value="Aktif">Aktif</option><option value="Baru">Baru</option><option value="Tidak aktif">Tidak aktif</option></select></label>
+              </div>
+              <div class="resident-form-actions">
+                <button type="button" class="ghost-btn" id="cancelResidentButtonBottom">Batal</button>
+                <button type="submit" class="btn btn-primary btn-small">Simpan Data</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Aktivitas Terbaru</h3>
+              <span class="panel-tag">Live</span>
+            </div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <span class="activity-dot"></span>
+                <div>
+                  <strong>Kerja Bakti</strong>
+                  <span>Hari Sabtu, 08.00 WIB</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-dot"></span>
+                <div>
+                  <strong>Rapat RT</strong>
+                  <span>Disepakati 15 September</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-dot"></span>
+                <div>
+                  <strong>Pengumuman Baru</strong>
+                  <span>Perubahan jadwal sampah</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-dot"></span>
+                <div>
+                  <strong>Pembersihan Taman</strong>
+                  <span>Tim lingkungan siap bergerak</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel gallery-management" id="gallery-management">
+          <div class="panel-head">
+            <h3>Kelola Galeri</h3>
+            <button type="button" class="btn btn-primary btn-small" id="addGalleryButton">+ Tambah Galeri</button>
+          </div>
+          <div class="table-tools">
+            <input id="gallerySearch" type="search" placeholder="Cari judul atau kategori..." aria-label="Cari galeri" />
+          </div>
+          <div class="gallery-admin-grid" id="galleryAdminGrid"></div>
+          <form class="resident-form" id="galleryForm" hidden>
+            <div class="resident-form-head">
+              <h4 id="galleryFormTitle">Tambah Galeri</h4>
+              <button type="button" class="form-close" id="cancelGalleryButton" aria-label="Tutup form">&times;</button>
+            </div>
+            <input type="hidden" id="galleryId" />
+            <div class="resident-form-grid gallery-form-grid">
+              <label>Judul<input id="galleryTitle" type="text" placeholder="Contoh: Kerja Bakti" required /></label>
+              <label>Kategori<input id="galleryCategory" type="text" placeholder="Contoh: Kegiatan" required /></label>
+              <label>URL gambar<input id="galleryImage" type="url" placeholder="https://..." required /></label>
+            </div>
+            <div class="resident-form-actions">
+              <button type="button" class="ghost-btn" id="cancelGalleryButtonBottom">Batal</button>
+              <button type="submit" class="btn btn-primary btn-small">Simpan Galeri</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel announcement-management" id="announcement-management">
+          <div class="panel-head">
+            <h3>Kelola Pengumuman</h3>
+            <button type="button" class="btn btn-primary btn-small" id="addAnnouncementButton">+ Tambah Pengumuman</button>
+          </div>
+          <div class="table-tools">
+            <input id="announcementSearch" type="search" placeholder="Cari judul atau tag..." aria-label="Cari pengumuman" />
+          </div>
+          <table class="table">
+            <thead>
+              <tr><th>Tag</th><th>Judul</th><th>Tanggal</th><th>Aksi</th></tr>
+            </thead>
+            <tbody id="announcementTableBody"></tbody>
+          </table>
+          <form class="resident-form" id="announcementForm" hidden>
+            <div class="resident-form-head">
+              <h4 id="announcementFormTitle">Tambah Pengumuman</h4>
+              <button type="button" class="form-close" id="cancelAnnouncementButton" aria-label="Tutup form">&times;</button>
+            </div>
+            <input type="hidden" id="announcementId" />
+            <div class="resident-form-grid announcement-form-grid">
+              <label>Tag<input id="announcementTag" type="text" placeholder="Contoh: Penting" required /></label>
+              <label>Judul<input id="announcementTitle" type="text" required /></label>
+              <label>Tanggal<input id="announcementDate" type="text" placeholder="Contoh: 25 Sep 2026" required /></label>
+            </div>
+            <label class="announcement-description">Deskripsi<textarea id="announcementDescription" rows="3" required></textarea></label>
+            <div class="resident-form-actions">
+              <button type="button" class="ghost-btn" id="cancelAnnouncementButtonBottom">Batal</button>
+              <button type="submit" class="btn btn-primary btn-small">Simpan Pengumuman</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+    <script>
+      const residentStorageKey = 'rt04-residents';
+      const defaultResidents = [
+        { id: 1, name: 'Andi Pratama', block: 'A1', status: 'Aktif' },
+        { id: 2, name: 'Sari Dewi', block: 'B2', status: 'Aktif' },
+        { id: 3, name: 'Rizky Putra', block: 'C4', status: 'Baru' },
+        { id: 4, name: 'Linda Hasanah', block: 'D3', status: 'Aktif' }
+      ];
+
+      let residents = JSON.parse(localStorage.getItem(residentStorageKey)) || defaultResidents;
+      const residentTableBody = document.getElementById('residentTableBody');
+      const residentForm = document.getElementById('residentForm');
+      const residentSearch = document.getElementById('residentSearch');
+      const residentFormTitle = document.getElementById('residentFormTitle');
+
+      function saveResidents() {
+        localStorage.setItem(residentStorageKey, JSON.stringify(residents));
+      }
+
+      function statusClass(status) {
+        return status === 'Aktif' ? 'success' : status === 'Baru' ? 'pending' : 'inactive';
+      }
+
+      function renderResidents() {
+        const query = residentSearch.value.trim().toLowerCase();
+        const visibleResidents = residents.filter((resident) =>
+          `${resident.name} ${resident.block} ${resident.status}`.toLowerCase().includes(query)
+        );
+
+        residentTableBody.innerHTML = visibleResidents.length
+          ? visibleResidents.map((resident) => `
+              <tr>
+                <td>${resident.name}</td>
+                <td>${resident.block}</td>
+                <td><span class="status ${statusClass(resident.status)}">${resident.status}</span></td>
+                <td class="row-actions">
+                  <button type="button" class="table-action edit" data-action="edit" data-id="${resident.id}">Edit</button>
+                  <button type="button" class="table-action delete" data-action="delete" data-id="${resident.id}">Hapus</button>
+                </td>
+              </tr>`).join('')
+          : '<tr><td colspan="4" class="empty-state">Data warga tidak ditemukan.</td></tr>';
+      }
+
+      function openResidentForm(resident) {
+        residentForm.hidden = false;
+        residentFormTitle.textContent = resident ? 'Edit Data Warga' : 'Tambah Warga';
+        document.getElementById('residentId').value = resident?.id || '';
+        document.getElementById('residentName').value = resident?.name || '';
+        document.getElementById('residentBlock').value = resident?.block || '';
+        document.getElementById('residentStatus').value = resident?.status || 'Aktif';
+        document.getElementById('residentName').focus();
+      }
+
+      function closeResidentForm() {
+        residentForm.reset();
+        residentForm.hidden = true;
+      }
+
+      document.getElementById('addResidentButton').addEventListener('click', () => openResidentForm());
+      document.getElementById('addResidentQuickButton').addEventListener('click', (event) => {
+        event.preventDefault();
+        document.getElementById('resident-management').scrollIntoView({ behavior: 'smooth' });
+        openResidentForm();
+      });
+      document.getElementById('manageResidentsButton').addEventListener('click', (event) => {
+        event.preventDefault();
+        document.getElementById('resident-management').scrollIntoView({ behavior: 'smooth' });
+        openResidentForm();
+      });
+      document.getElementById('cancelResidentButton').addEventListener('click', closeResidentForm);
+      document.getElementById('cancelResidentButtonBottom').addEventListener('click', closeResidentForm);
+      residentSearch.addEventListener('input', renderResidents);
+
+      residentTableBody.addEventListener('click', (event) => {
+        const actionButton = event.target.closest('[data-action]');
+        if (!actionButton) return;
+
+        const residentId = Number(actionButton.dataset.id);
+        const resident = residents.find((item) => item.id === residentId);
+        if (actionButton.dataset.action === 'edit') openResidentForm(resident);
+        if (actionButton.dataset.action === 'delete' && resident && confirm(`Hapus data ${resident.name}?`)) {
+          residents = residents.filter((item) => item.id !== residentId);
+          saveResidents();
+          renderResidents();
+        }
+      });
+
+      residentForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const residentId = Number(document.getElementById('residentId').value);
+        const residentData = {
+          id: residentId || Date.now(),
+          name: document.getElementById('residentName').value.trim(),
+          block: document.getElementById('residentBlock').value.trim().toUpperCase(),
+          status: document.getElementById('residentStatus').value
+        };
+
+        if (residentId) {
+          residents = residents.map((resident) => resident.id === residentId ? residentData : resident);
+        } else {
+          residents.push(residentData);
+        }
+        saveResidents();
+        renderResidents();
+        closeResidentForm();
+      });
+
+      renderResidents();
+
+      const galleryStorageKey = 'rt04-gallery';
+      const defaultGallery = [
+        { id: 1, title: 'Kerja Bakti', category: 'Kegiatan', image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80' },
+        { id: 2, title: 'Rapat Warga', category: 'Pertemuan', image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=900&q=80' },
+        { id: 3, title: 'Kebersihan Lingkungan', category: 'Lingkungan', image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80' },
+        { id: 4, title: 'Acara Sosial', category: 'Sosial', image: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80' }
+      ];
+      let galleryItems = JSON.parse(localStorage.getItem(galleryStorageKey)) || defaultGallery;
+      const galleryAdminGrid = document.getElementById('galleryAdminGrid');
+      const galleryForm = document.getElementById('galleryForm');
+      const gallerySearch = document.getElementById('gallerySearch');
+      const galleryFormTitle = document.getElementById('galleryFormTitle');
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' })[character]);
+      }
+
+      function saveGallery() {
+        localStorage.setItem(galleryStorageKey, JSON.stringify(galleryItems));
+      }
+
+      function renderGallery() {
+        const query = gallerySearch.value.trim().toLowerCase();
+        const visibleItems = galleryItems.filter((item) =>
+          `${item.title} ${item.category}`.toLowerCase().includes(query)
+        );
+        galleryAdminGrid.innerHTML = visibleItems.length
+          ? visibleItems.map((item) => `
+              <article class="gallery-admin-card">
+                <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" />
+                <div class="gallery-admin-content">
+                  <span class="panel-tag">${escapeHtml(item.category)}</span>
+                  <h4>${escapeHtml(item.title)}</h4>
+                  <div class="row-actions">
+                    <button type="button" class="table-action edit" data-gallery-action="edit" data-id="${item.id}">Edit</button>
+                    <button type="button" class="table-action delete" data-gallery-action="delete" data-id="${item.id}">Hapus</button>
+                  </div>
+                </div>
+              </article>`).join('')
+          : '<p class="empty-state">Galeri tidak ditemukan.</p>';
+      }
+
+      function openGalleryForm(item) {
+        galleryForm.hidden = false;
+        galleryFormTitle.textContent = item ? 'Edit Galeri' : 'Tambah Galeri';
+        document.getElementById('galleryId').value = item?.id || '';
+        document.getElementById('galleryTitle').value = item?.title || '';
+        document.getElementById('galleryCategory').value = item?.category || '';
+        document.getElementById('galleryImage').value = item?.image || '';
+        document.getElementById('galleryTitle').focus();
+      }
+
+      function closeGalleryForm() {
+        galleryForm.reset();
+        galleryForm.hidden = true;
+      }
+
+      document.getElementById('addGalleryButton').addEventListener('click', () => openGalleryForm());
+      document.getElementById('cancelGalleryButton').addEventListener('click', closeGalleryForm);
+      document.getElementById('cancelGalleryButtonBottom').addEventListener('click', closeGalleryForm);
+      gallerySearch.addEventListener('input', renderGallery);
+      galleryAdminGrid.addEventListener('click', (event) => {
+        const actionButton = event.target.closest('[data-gallery-action]');
+        if (!actionButton) return;
+        const itemId = Number(actionButton.dataset.id);
+        const item = galleryItems.find((galleryItem) => galleryItem.id === itemId);
+        if (actionButton.dataset.galleryAction === 'edit') openGalleryForm(item);
+        if (actionButton.dataset.galleryAction === 'delete' && item && confirm(`Hapus galeri ${item.title}?`)) {
+          galleryItems = galleryItems.filter((galleryItem) => galleryItem.id !== itemId);
+          saveGallery();
+          renderGallery();
+        }
+      });
+      galleryForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const itemId = Number(document.getElementById('galleryId').value);
+        const galleryData = {
+          id: itemId || Date.now(),
+          title: document.getElementById('galleryTitle').value.trim(),
+          category: document.getElementById('galleryCategory').value.trim(),
+          image: document.getElementById('galleryImage').value.trim()
+        };
+        galleryItems = itemId
+          ? galleryItems.map((item) => item.id === itemId ? galleryData : item)
+          : [...galleryItems, galleryData];
+        saveGallery();
+        renderGallery();
+        closeGalleryForm();
+      });
+
+      renderGallery();
+
+      const announcementStorageKey = 'rt04-announcements';
+      const defaultAnnouncements = [
+        { id: 1, tag: 'Agenda', title: 'Kerja Bakti Minggu', description: 'Membersihkan area taman dan jalan lingkungan pada hari Sabtu pagi.', date: '12 Sep 2026' },
+        { id: 2, tag: 'Rapat', title: 'Musyawarah Warga', description: 'Pembahasan rencana kegiatan sosial dan pengelolaan lingkungan RT/RW.', date: '15 Sep 2026' },
+        { id: 3, tag: 'Penting', title: 'Pengumuman Kebijakan', description: 'Perubahan jadwal pengumpulan sampah dan program lingkungan baru.', date: '20 Sep 2026' }
+      ];
+      let announcements = defaultAnnouncements;
+      let announcementApiAvailable = false;
+      const announcementTableBody = document.getElementById('announcementTableBody');
+      const announcementForm = document.getElementById('announcementForm');
+      const announcementSearch = document.getElementById('announcementSearch');
+      const announcementFormTitle = document.getElementById('announcementFormTitle');
+
+      function saveAnnouncementsLocally() {
+        localStorage.setItem(announcementStorageKey, JSON.stringify(announcements));
+      }
+
+      async function loadAnnouncements() {
+        try {
+          const response = await fetch('/api/announcements');
+          if (!response.ok) throw new Error('API unavailable');
+          announcements = await response.json();
+          announcementApiAvailable = true;
+        } catch (error) {
+          announcements = JSON.parse(localStorage.getItem(announcementStorageKey)) || defaultAnnouncements;
+        }
+        renderAnnouncements();
+      }
+
+      function renderAnnouncements() {
+        const query = announcementSearch.value.trim().toLowerCase();
+        const visibleAnnouncements = announcements.filter((item) => `${item.tag} ${item.title} ${item.description}`.toLowerCase().includes(query));
+        announcementTableBody.innerHTML = visibleAnnouncements.length
+          ? visibleAnnouncements.map((item) => `
+              <tr>
+                <td><span class="status success">${escapeHtml(item.tag)}</span></td>
+                <td>${escapeHtml(item.title)}</td>
+                <td>${escapeHtml(item.date)}</td>
+                <td class="row-actions"><button type="button" class="table-action edit" data-announcement-action="edit" data-id="${item.id}">Edit</button><button type="button" class="table-action delete" data-announcement-action="delete" data-id="${item.id}">Hapus</button></td>
+              </tr>`).join('')
+          : '<tr><td colspan="4" class="empty-state">Pengumuman tidak ditemukan.</td></tr>';
+      }
+
+      function openAnnouncementForm(item) {
+        announcementForm.hidden = false;
+        announcementFormTitle.textContent = item ? 'Edit Pengumuman' : 'Tambah Pengumuman';
+        document.getElementById('announcementId').value = item?.id || '';
+        document.getElementById('announcementTag').value = item?.tag || '';
+        document.getElementById('announcementTitle').value = item?.title || '';
+        document.getElementById('announcementDate').value = item?.date || '';
+        document.getElementById('announcementDescription').value = item?.description || '';
+        document.getElementById('announcementTag').focus();
+      }
+
+      function closeAnnouncementForm() {
+        announcementForm.reset();
+        announcementForm.hidden = true;
+      }
+
+      document.getElementById('addAnnouncementButton').addEventListener('click', () => openAnnouncementForm());
+      document.getElementById('cancelAnnouncementButton').addEventListener('click', closeAnnouncementForm);
+      document.getElementById('cancelAnnouncementButtonBottom').addEventListener('click', closeAnnouncementForm);
+      announcementSearch.addEventListener('input', renderAnnouncements);
+      announcementTableBody.addEventListener('click', async (event) => {
+        const actionButton = event.target.closest('[data-announcement-action]');
+        if (!actionButton) return;
+        const itemId = Number(actionButton.dataset.id);
+        const item = announcements.find((announcement) => announcement.id === itemId);
+        if (actionButton.dataset.announcementAction === 'edit') openAnnouncementForm(item);
+        if (actionButton.dataset.announcementAction === 'delete' && item && confirm(`Hapus pengumuman ${item.title}?`)) {
+          announcements = announcements.filter((announcement) => announcement.id !== itemId);
+          if (announcementApiAvailable) {
+            await fetch(`/api/announcements/${itemId}`, { method: 'DELETE' });
+          }
+          saveAnnouncementsLocally();
+          renderAnnouncements();
+        }
+      });
+      announcementForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const itemId = Number(document.getElementById('announcementId').value);
+        const announcement = {
+          id: itemId || Date.now(),
+          tag: document.getElementById('announcementTag').value.trim(),
+          title: document.getElementById('announcementTitle').value.trim(),
+          date: document.getElementById('announcementDate').value.trim(),
+          description: document.getElementById('announcementDescription').value.trim()
+        };
+        if (announcementApiAvailable) {
+          const response = await fetch(itemId ? `/api/announcements/${itemId}` : '/api/announcements', {
+            method: itemId ? 'PUT' : 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(announcement)
+          });
+          if (response.ok) {
+            const savedAnnouncement = await response.json();
+            announcements = itemId ? announcements.map((item) => item.id === itemId ? savedAnnouncement : item) : [...announcements, savedAnnouncement];
+          }
+        } else {
+          announcements = itemId ? announcements.map((item) => item.id === itemId ? announcement : item) : [...announcements, announcement];
+        }
+        saveAnnouncementsLocally();
+        renderAnnouncements();
+        closeAnnouncementForm();
+      });
+
+      loadAnnouncements();
+    </script>
+  </body>
+</html>

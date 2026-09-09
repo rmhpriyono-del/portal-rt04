@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Portal RT04/RW04</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="auth-page">
+    <div class="auth-shell">
+      <div class="auth-visual">
+        <div class="auth-visual-card">
+          <h1>Bergabung dengan Warga</h1>
+          <p>Daftarkan akun Anda untuk menerima informasi, agenda, dan layanan komunitas RT/RW 04.</p>
+        </div>
+      </div>
+
+      <div class="auth-form-wrap">
+        <div class="auth-header">
+          <p class="eyebrow">Pendaftaran</p>
+          <h2>Buat akun baru</h2>
+        </div>
+
+        <form class="auth-form" id="registerForm">
+          <div>
+            <label for="fullName">Nama Lengkap</label>
+            <input id="fullName" type="text" placeholder="Masukkan nama lengkap" required />
+          </div>
+
+          <div>
+            <label for="registerNik">NIK</label>
+            <input id="registerNik" type="text" inputmode="numeric" pattern="[0-9]{16}" maxlength="16" placeholder="Masukkan 16 digit NIK" required />
+          </div>
+
+          <div>
+            <label for="registerEmail">Email</label>
+            <input id="registerEmail" type="email" placeholder="Masukkan email" required />
+          </div>
+
+          <div class="auth-actions">
+            <a href="login.html">Sudah punya akun?</a>
+            <button type="submit" class="btn btn-primary">Daftar</button>
+          </div>
+
+          <div id="registerMessage" class="status-message" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const registerForm = document.getElementById('registerForm');
+      const registerMessage = document.getElementById('registerMessage');
+
+      registerForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
+        const nik = document.getElementById('registerNik').value.trim();
+
+        if (!name || !email || !nik) {
+          registerMessage.className = 'status-message error';
+          registerMessage.textContent = 'Semua field harus diisi.';
+          return;
+        }
+
+        if (!/^\d{16}$/.test(nik)) {
+          registerMessage.className = 'status-message error';
+          registerMessage.textContent = 'NIK harus terdiri dari 16 digit angka.';
+          return;
+        }
+
+        const wargaAccounts = JSON.parse(localStorage.getItem('rt04-warga-accounts') || '[]');
+        if (wargaAccounts.some((account) => account.name.toLowerCase() === name.toLowerCase() || account.nik === nik)) {
+          registerMessage.className = 'status-message error';
+          registerMessage.textContent = 'Nama lengkap atau NIK sudah terdaftar.';
+          return;
+        }
+
+        wargaAccounts.push({ name, nik, email });
+        localStorage.setItem('rt04-warga-accounts', JSON.stringify(wargaAccounts));
+
+        registerMessage.className = 'status-message success';
+        registerMessage.textContent = 'Pendaftaran berhasil! Silakan masuk dengan akun baru Anda.';
+
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
